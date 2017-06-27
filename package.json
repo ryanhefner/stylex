@@ -13,7 +13,7 @@
   "bugs": "https://github.com/ryanhefner/stylex/issues",
   "scripts": {
     "compile": "babel --presets latest,es2015 -d ./ src/",
-    "prepublish": "npm run compile",
+    "prepare": "npm run compile",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "main": "index.js",
