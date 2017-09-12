@@ -1,19 +1,61 @@
 /**
- * Stylex
+ * Regular expression used to check for the presense of vendor prefix on
+ * the Javascript flavor of CSS properties.
  *
- * @version 0.1.0
- * @description Easily convert CSS styles between the DOM and Javascript, and back.
- * @author Ryan Hefner <hi@ryanhefner.com>
+ * @const
  */
-
-const convertNameToJson = Symbol();
-const convertNameToCss = Symbol();
-
 const VENDOR_PREFIX_REGEX = new RegExp('(webkit|moz|ms|o)([A-Z])');
+
+/**
+ * Convert the css attribute name to format supported by Javascript.
+ *
+ * @param {string} name
+ * @return {string}
+ */
+const convertNameToJson = (name) => {
+  if (!name) {
+    return name;
+  }
+
+  if (name.length && name[0] === '-') {
+    name = name.substr(1);
+  }
+
+  const parts = name.split('-');
+  parts.forEach((part, index) => {
+    if (index > 0) {
+      parts[index] = `${part.charAt(0).toUpperCase()}${part.slice(1)}`;
+    }
+  });
+
+  return parts.join('');
+};
+
+/**
+ * Convert Javascript attribute name to format supported by CSS/DOM.
+ *
+ * @param {string} name
+ * @return {string}
+ */
+const convertNameToCss = (name) => {
+  if (!name) {
+    return name;
+  }
+
+  if (VENDOR_PREFIX_REGEX.test(name)) {
+    name = `-${name}`;
+  }
+
+  name = name.replace(/[A-Z]/g, (match) => {
+    return `-${match.toLowerCase()}`;
+  });
+
+  return name;
+};
 
 class Stylex {
 
-// Public Static Methods _____________________________________________________
+// Static Methods ____________________________________________________________
 
   /**
    * Convert cssText string to JSON style object.
@@ -27,7 +69,7 @@ class Stylex {
     declarations.forEach((declaration) => {
       if (declaration.indexOf(':') > -1) {
         const [key, value] = declaration.split(':');
-        const name = Stylex[convertNameToJson](key.trim());
+        const name = convertNameToJson(key.trim());
         styles[name] = value.trim();
       }
     });
@@ -38,14 +80,14 @@ class Stylex {
   /**
    * Convert JSON object to cssText.
    *
-   * @param {Object} json
-   * @return {String}
+   * @param {object} json
+   * @return {string}
    */
   static convertJsonStyles(json) {
     let styles = '';
 
     Object.keys(json).forEach((key) => {
-      styles += `${Stylex[convertNameToCss](key)}: ${json[key]};`
+      styles += `${convertNameToCss(key)}: ${json[key]};`
     });
 
     return styles;
@@ -54,8 +96,8 @@ class Stylex {
   /**
    * Return the cssText for the rule specified by the selector.
    *
-   * @param {String} selector
-   * @return {String}
+   * @param {string} selector
+   * @return {string}
    */
   static findDOMStyles(selector) {
     const styleSheets = document.styleSheets;
@@ -76,55 +118,6 @@ class Stylex {
     }
 
     return undefined;
-  }
-
-// Private Static Methods ____________________________________________________
-
-  /**
-   * Convert the css attribute name to format supported by Javascript.
-   *
-   * @param {String} name
-   * @return {String}
-   */
-  static [convertNameToJson](name) {
-    if (!name) {
-      return name;
-    }
-
-    if (name.length && name[0] === '-') {
-      name = name.substr(1);
-    }
-
-    const parts = name.split('-');
-    parts.forEach((part, index) => {
-      if (index > 0) {
-        part[index] = part.toUpperCase();
-      }
-    });
-
-    return parts.join('');
-  }
-
-  /**
-   * Convert Javascript attribute name to format supported by CSS/DOM.
-   *
-   * @param {String} name
-   * @return {String}
-   */
-  static [convertNameToCss](name) {
-    if (!name) {
-      return name;
-    }
-
-    if (VENDOR_PREFIX_REGEX.test(name)) {
-      name = `-${name}`;
-    }
-
-    name = name.replace(/[A-Z]/g, (match) => {
-      return `-${match.toLowerCase()}`;
-    });
-
-    return name;
   }
 }
 
