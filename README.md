@@ -1,18 +1,23 @@
 # Stylex
+
 Utility for converting CSS styles in the DOM to Javascript, and back.
 
 ## Install
-Via [NPM](https://npmjs.com):
-```
+
+Via [NPM](https://npmjs.com/package/stylex)
+
+```sh
 npm install --save stylex
 ```
 
-Via [Yarn](https://yarnpkg.com):
-```
+Via [Yarn](https://yarnpkg.fyi/stylex)
+
+```sh
 yarn add stylex
 ```
 
 ## Methods
+
 Below are the static methods available on the `Stylex` class, along with examples how
 each could be used.
 
@@ -21,7 +26,8 @@ each could be used.
 Method that will return the `CSSRule.cssText` for the specified CSS selector.
 
 _Example_
-```
+
+```js
 const stylesText = Stylex.findDOMStyles('.example-class-name');
 ```
 
@@ -31,7 +37,8 @@ Converts a `CSSRule.cssText` string to a JSON object that can be used/manipulate
 in Javascript.
 
 _Example_
-```
+
+```js
 const styles = Stylex.convertCssText(Stylex.findDOMStyles('.example-class-name'));
 ```
 
@@ -41,7 +48,8 @@ In the event you need to go the opposite direction, you can convert a JSON objec
 of CSS styles to a string that could be applied as a `CSSRule.cssText`.
 
 _Example_
-```
+
+```js
 const stylesText = Stylex.convertJsonStyles({
     fontSize: '16px',
     backgroundColor: '#fff',
@@ -49,6 +57,7 @@ const stylesText = Stylex.convertJsonStyles({
 ```
 
 ## Examples
+
 This class spawned from the need to animate styles via Javascript, but with the
 goal of being able to keep the styles defined in CSS as much as possible. It allows
 you to find styles that are available in the DOM and convert those to JSON object(s)
@@ -69,6 +78,7 @@ more flexible.
 [View Example on Codepen](https://codepen.io/ryanhefner/project/details/ALYdOn/)
 
 ## Name Origin
+
 In case anyone is curious, the name of this package has a dual meaning to me.
 One, I think it pretty succinctly sums up what this class does, but it has a second
 reference that is just as cool, to me at least. I went to school at Bowling Green
