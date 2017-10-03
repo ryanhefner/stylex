@@ -1,7 +1,7 @@
 const BABEL_ENV = process.env.BABEL_ENV;
 const building = BABEL_ENV != undefined && BABEL_ENV !== 'cjs';
 
-const plugins = ['transform-object-rest-spread'];
+const plugins = [];
 
 if (BABEL_ENV === 'umd') {
   plugins.push('external-helpers');
@@ -16,10 +16,8 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   presets: [
     ['env', {
-      'es2015': {
-        'loose': true,
-        'modules': building ? false : 'commonjs'
-      }
+      'loose': true,
+      'modules': building ? false : 'commonjs'
     }],
   ],
   plugins: plugins,

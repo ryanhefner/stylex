@@ -94,4 +94,5 @@ I would definitely recommend you check them out! [Stylex (the band)](https://sty
 🐺 !!PARTY HOWL!! 🐺
 
 ## License
-[MIT](LICENSE)
+
+[MIT](LICENSE) © [Ryan Hefner](https://www.ryanhefner.com)
