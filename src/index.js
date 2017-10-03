@@ -53,6 +53,30 @@ const convertNameToCss = (name) => {
   return name;
 };
 
+/**
+ * Method for grabbing all stylesheets and rules associated with <style> tags from the page.
+ *
+ * @return {array}
+ */
+const getStyles = () => {
+  const styles = [];
+  let i;
+
+  // Parse linked style sheets
+  const styleSheets = document.styleSheets;
+  for (i = 0; i < styleSheets.length; i++) {
+    styles.push(styleSheets[i]);
+  }
+
+  // Parse <style> tags
+  const tags = document.querySelectorAll('style');
+  for (i = 0; i < tags.length; i++) {
+    styles.push(tags[i].sheet);
+  }
+
+  return styles;
+};
+
 class Stylex {
 
 // Static Methods ____________________________________________________________
@@ -100,22 +124,23 @@ class Stylex {
    * @return {string}
    */
   static findDOMStyles(selector) {
-    const styleSheets = document.styleSheets;
-    for (let i = 0; i < styleSheets.length; i++) {
-      const styleSheet = styleSheets[i];
-      const rules = styleSheet.rules || styleSheet.cssRules;
+    getStyles().forEach((style) => {
+      const rules = style.rules || style.cssRules;
 
-      for (let j = 0; j < rules.length; j++) {
-        const rule = rules[j];
-        if (rule.selectorText === `${selector}`) {
-          const cssText = rule.cssText || rule.style.cssText;
-          return cssText
-            .replace(`${selector} `, '')
-            .replace('{ ', '')
-            .replace(' }', '');
+      if (rules) {
+        for (let i = 0; i < rules.length; i++) {
+          const rule = rules[i];
+
+          if (rule.selectorText === `${selector}`) {
+            const cssText = reule.cssText || rule.style.cssText;
+            return cssText
+              .replace(`${selector} `, '')
+              .replace('{ ', '')
+              .replace(' }', '');
+          }
         }
       }
-    }
+    });
 
     return undefined;
   }
