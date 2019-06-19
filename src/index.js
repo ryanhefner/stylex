@@ -132,7 +132,7 @@ class Stylex {
           const rule = rules[i];
 
           if (rule.selectorText === `${selector}`) {
-            const cssText = reule.cssText || rule.style.cssText;
+            const cssText = rule.cssText || rule.style.cssText;
             return cssText
               .replace(`${selector} `, '')
               .replace('{ ', '')
