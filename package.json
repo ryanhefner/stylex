@@ -1,6 +1,6 @@
 {
   "name": "stylex",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "license": "MIT",
   "description": "Easily convert CSS styles between the DOM and Javascript, and back.",
   "repository": "ryanhefner/stylex",
