@@ -1,5 +1,10 @@
 # Stylex
 
+![npm](https://img.shields.io/npm/v/stylex?style=flat-square)
+![NPM](https://img.shields.io/npm/l/stylex?style=flat-square)
+![npm](https://img.shields.io/npm/dt/stylex?style=flat-square)
+![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/ryanhefner/stylex?style=flat-square)
+
 Utility for converting CSS styles in the DOM to Javascript, and back.
 
 ## Install
